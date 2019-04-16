@@ -43,6 +43,14 @@ const UserSchema = mongoose.Schema({
    {
        type:Date,
        
+   },
+   doner:
+   {
+       type:Boolean
+   },
+   mobileNumber:
+   {
+       type:Number
    }
    
 

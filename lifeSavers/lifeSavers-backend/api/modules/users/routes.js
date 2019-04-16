@@ -11,6 +11,6 @@ app.post('/newUser',User.registerUser);
 app.post('/login',User.loginUser);
 app.get('/logout',User.logoutUser);
 app.get('/users',User.getUsers);
-
+app.get('/doners',User.getDoners);
 
 module.exports = app;

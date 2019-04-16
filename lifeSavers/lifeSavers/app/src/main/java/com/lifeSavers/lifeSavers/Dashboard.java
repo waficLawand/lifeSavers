@@ -64,6 +64,7 @@ public class Dashboard extends AppCompatActivity
         TextView email    = (TextView)headerView.findViewById(R.id.navEmail);
         ImageView userImage = (ImageView)headerView.findViewById(R.id.userImage);
 
+
         userImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
