@@ -17,10 +17,10 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="72dp"
+            android:layout_height="120dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="24dp"
-            android:src="@drawable/logo" />
+            android:src="@drawable/sss" />
 
         <!-- Name Label -->
 
@@ -160,6 +160,8 @@
             android:layout_marginBottom="24dp"
             android:layout_marginTop="24dp"
             android:padding="12dp"
+            android:background="#083B66"
+            android:textColor="#ffffff"
             android:text="Create Account" />
 
         <TextView
