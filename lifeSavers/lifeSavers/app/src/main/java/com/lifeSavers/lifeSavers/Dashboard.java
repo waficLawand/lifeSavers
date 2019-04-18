@@ -36,7 +36,7 @@ public class Dashboard extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-        tx.replace(R.id.flContent, new ServicesFragment());
+
         tx.commit();
 
         setContentView(R.layout.activity_dashboard);

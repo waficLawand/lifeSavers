@@ -29,11 +29,12 @@
         </activity>
         <activity
             android:name="com.lifeSavers.lifeSavers.LoginActivity"
-            android:theme="@style/AppTheme.Dark" />
+
+             />
         <activity
             android:launchMode="singleTop"
             android:name="com.lifeSavers.lifeSavers.SignupActivity"
-            android:theme="@style/AppTheme.Dark" />
+             />
         <activity
             android:name="com.lifeSavers.lifeSavers.Dashboard"
             android:label="@string/title_activity_dashboard"
