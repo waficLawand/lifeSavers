@@ -5,7 +5,7 @@ package com.lifeSavers.lifeSavers;
  */
 
 public class Constants {
-    private String IP = "172.33.137.138";
+    private String IP = "192.168.2.106";
 
     public String getIP() {
         return IP;

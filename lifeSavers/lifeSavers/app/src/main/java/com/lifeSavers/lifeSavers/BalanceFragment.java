@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +34,56 @@ public class BalanceFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_balance,container,false);
         Button viewDoners = (Button) v.findViewById(R.id.doners);
-        final TextView text = (TextView) v.findViewById(R.id.textView2);
+        ListView list;
+
+        String[] maintitle ={
+                "Title 1"
+        };
+
+        String[] subtitle ={
+                "Sub Title 1"
+        };
+
+        Integer[] imgid={
+                R.drawable.fb_logo
+        };
+
+        MyListView adapter=new MyListView(getActivity(), maintitle, subtitle,imgid);
+        list=(ListView)v.findViewById(R.id.list);
+        list.setAdapter(adapter);
+
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+                // TODO Auto-generated method stub
+                if(position == 0) {
+                    //code specific to first list item
+                    Toast.makeText(getContext(),"Place Your First Option Code",Toast.LENGTH_SHORT).show();
+                }
+
+                /*else if(position == 1) {
+                    //code specific to 2nd list item
+                    Toast.makeText(getContext(),"Place Your Second Option Code",Toast.LENGTH_SHORT).show();
+                }
+
+                else if(position == 2) {
+
+                    Toast.makeText(getContext(),"Place Your Third Option Code",Toast.LENGTH_SHORT).show();
+                }
+                else if(position == 3) {
+
+                    Toast.makeText(getContext(),"Place Your Forth Option Code",Toast.LENGTH_SHORT).show();
+                }
+                else if(position == 4) {
+
+                    Toast.makeText(getContext(),"Place Your Fifth Option Code",Toast.LENGTH_SHORT).show();
+                }
+*/
+            }
+        });
+        //final TextView text = (TextView) v.findViewById(R.id.textView2);
 
 
         viewDoners.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +106,7 @@ public class BalanceFragment extends Fragment {
                                 // display response
                                 Log.d("Response", response.toString());
                                 Toast.makeText(getContext(),response.toString(),Toast.LENGTH_SHORT).show();
-                                text.setText(response.toString());
+                                //text.setText(response.toString());
 
                             }
                         },
