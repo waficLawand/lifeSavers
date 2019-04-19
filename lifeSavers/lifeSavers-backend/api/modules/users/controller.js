@@ -77,10 +77,10 @@ class User
             }
             else
             {
-                let userMap = {};
+                let userMap = [];
 
                 users.forEach(function(user){
-                    userMap = user;
+                    userMap.push(user);
     
                 });
                 res.send(userMap);
