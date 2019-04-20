@@ -129,7 +129,7 @@ public class Dashboard extends AppCompatActivity
 
 
         if (id == R.id.balance_fragment) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.flContent,new BalanceFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.flContent,new BloodDoners()).commit();
 
         } else if (id == R.id.logout) {
             String URL = "http://"+constants.getIP()+":3000/api/logout";

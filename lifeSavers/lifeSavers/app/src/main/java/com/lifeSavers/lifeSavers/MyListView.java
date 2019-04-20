@@ -9,14 +9,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class MyListView extends ArrayAdapter<String> {
 
     private final Activity context;
-    private final String[] maintitle;
-    private final String[] subtitle;
-    private final Integer[] imgid;
+    private final ArrayList<String> maintitle;
+    private final ArrayList<String> subtitle;
+    private final ArrayList<Integer> imgid;
 
-    public MyListView(Activity context, String[] maintitle,String[] subtitle, Integer[] imgid) {
+    public MyListView(Activity context, ArrayList<String> maintitle,ArrayList<String> subtitle, ArrayList<Integer> imgid) {
         super(context, R.layout.mylist, maintitle);
         // TODO Auto-generated constructor stub
 
@@ -35,9 +37,9 @@ public class MyListView extends ArrayAdapter<String> {
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
         TextView subtitleText = (TextView) rowView.findViewById(R.id.subtitle);
 
-        titleText.setText(maintitle[position]);
-        imageView.setImageResource(imgid[position]);
-        subtitleText.setText(subtitle[position]);
+        titleText.setText(maintitle.get(position));
+        imageView.setImageResource(imgid.get(position));
+        subtitleText.setText(subtitle.get(position));
 
         return rowView;
 
