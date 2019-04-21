@@ -19,24 +19,21 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.lifeSavers.lifeSavers.MainActivity"
-            android:label="@string/app_name">
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".LoginActivity" />
         <activity
-            android:name="com.lifeSavers.lifeSavers.LoginActivity"
-
-             />
+            android:name=".SignupActivity"
+            android:launchMode="singleTop" />
         <activity
-            android:launchMode="singleTop"
-            android:name="com.lifeSavers.lifeSavers.SignupActivity"
-             />
-        <activity
-            android:name="com.lifeSavers.lifeSavers.Dashboard"
+            android:name=".Dashboard"
             android:label="@string/title_activity_dashboard"
             android:theme="@style/AppTheme.NoActionBar" />
         <!--
@@ -52,10 +49,12 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:launchMode="singleTop"
-            android:name="com.lifeSavers.lifeSavers.MapsActivity"
+            android:name=".MapsActivity"
             android:label="@string/title_activity_maps"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".UserInfo" android:parentActivityName=".Dashboard">
+
         </activity>
     </application>
 

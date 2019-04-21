@@ -7,7 +7,7 @@
         <item
             android:id="@+id/home"
             android:icon="@drawable/ic_home_black_24dp"
-            android:title="Home" />
+            android:title="Blood Doners" />
         <item
             android:id="@+id/balance_fragment"
             android:icon="@drawable/ic_menu_dollar"

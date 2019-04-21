@@ -31,26 +31,18 @@ import org.json.JSONObject;
 public class Dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
         Constants constants = new Constants();
+    public static String userInfo ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-
-        tx.commit();
-
         setContentView(R.layout.activity_dashboard);
+        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+        tx.replace(R.id.flContent, new BloodDoners());
+        tx.commit();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        getSupportActionBar().hide();
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
 
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -66,7 +58,7 @@ public class Dashboard extends AppCompatActivity
         ImageView userImage = (ImageView)headerView.findViewById(R.id.userImage);
 
 
-        userImage.setOnClickListener(new View.OnClickListener() {
+                userImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.flContent,new ProfileFragment()).commit();
@@ -74,9 +66,10 @@ public class Dashboard extends AppCompatActivity
             }
         });
 
-        navigationView.setNavigationItemSelectedListener(this);
 
-        try {
+        navigationView.setNavigationItemSelectedListener(this);
+        userInfo = getIntent().getStringExtra("userData");
+        /*try {
             JSONObject userData = new JSONObject(getIntent().getStringExtra("userData"));
             username.setText(userData.getString("username"));
             email.setText(userData.getString("email"));
@@ -85,7 +78,7 @@ public class Dashboard extends AppCompatActivity
             Toast.makeText(Dashboard.this, userData.toString(), Toast.LENGTH_SHORT).show();
         } catch (JSONException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     @Override
@@ -152,7 +145,7 @@ public class Dashboard extends AppCompatActivity
 
 
          else if (id == R.id.home) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.flContent,new ServicesFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.flContent,new BloodDoners()).commit();
         } /*else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
@@ -168,5 +161,8 @@ public class Dashboard extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    public void setActionBarTitle(String title) {
+        getSupportActionBar().setTitle(title);
     }
 }

@@ -1,5 +1,6 @@
 package com.lifeSavers.lifeSavers;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -40,7 +41,7 @@ public class BloodDoners extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_balance,container,false);
-        Button viewDoners = (Button) v.findViewById(R.id.doners);
+        //Button viewDoners = (Button) v.findViewById(R.id.doners);
 
         final ListView list = (ListView)v.findViewById(R.id.list);
 
@@ -49,17 +50,19 @@ public class BloodDoners extends Fragment {
         final ArrayList<String> donersBloodType = new ArrayList<>();
         final ArrayList<Integer> images = new ArrayList<>();
 
-        viewDoners.setOnClickListener(new View.OnClickListener() {
+       /* viewDoners.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(),donersBloodType.toString(),Toast.LENGTH_LONG).show();
 
 
             }
-        });
+        });*/
+        ((Dashboard) getActivity())
+                .setActionBarTitle("Blood Doners");
 
         RequestQueue queue = Volley.newRequestQueue(getContext());  // this = context
-        Constants c = new Constants();
+        final Constants c = new Constants();
         final String url = "http://"+c.getIP()+":3000/api/doners";
 
         StringRequest getRequest = new StringRequest(Request.Method.GET, url,
@@ -87,6 +90,7 @@ public class BloodDoners extends Fragment {
                                 }
                             }
                             images.add(R.drawable.fb_logo);
+                            images.add(R.drawable.fb_logo);
                             MyListView adapter=new MyListView(getActivity(), donersFullName,donersBloodType,images);
                             list.setAdapter(adapter);
 
@@ -110,17 +114,48 @@ public class BloodDoners extends Fragment {
 
 
         queue.add(getRequest);
-        
+
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
-                // TODO Auto-generated method stub
-                if(position == 0) {
-                    //code specific to first list item
-                    Toast.makeText(getContext(),"Place Your First Option Code",Toast.LENGTH_SHORT).show();
-                }
 
+                Toast.makeText(getContext(),donersFullName.get(position),Toast.LENGTH_LONG).show();
+
+                final String url = "http://"+c.getIP()+":3000/api/doners/"+donersFullName.get(position);
+                RequestQueue queue = Volley.newRequestQueue(getContext());  // this = context
+                StringRequest getRequest = new StringRequest(Request.Method.GET, url,
+                        new Response.Listener<String>()
+                        {
+                            @Override
+                            public void onResponse(String response) {
+                                Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
+
+
+                                    Toast.makeText(getActivity(),response.toString(),Toast.LENGTH_LONG).show();
+                                    Intent i = new Intent(getActivity(),UserInfo.class);
+                                    i.putExtra("userInfo",response);
+                                    startActivity(i);
+
+
+
+
+
+                            }
+                        },
+                        new Response.ErrorListener()
+                        {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                // error
+
+                            }
+                        }
+
+                );
+
+
+                queue.add(getRequest);
                 /*else if(position == 1) {
                     //code specific to 2nd list item
                     Toast.makeText(getContext(),"Place Your Second Option Code",Toast.LENGTH_SHORT).show();
@@ -140,6 +175,7 @@ public class BloodDoners extends Fragment {
                 }
 */
             }
+
         });
 
 

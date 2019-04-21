@@ -89,6 +89,33 @@ class User
 
         });
     }
+    getDoner(req,res)
+    {
+        let id = req.params.name;
+        id = id.split(":").pop();
+        console.log(id);
+
+        UserSchema.find({fullName:id},function(err,users)
+        {
+            if(err)
+            {
+                res.send({error:true,msg:'Failed to lookup all users'});
+            }
+            else
+            {
+                let userMap = {};
+
+                users.forEach(function(user){
+                    userMap = user;
+    
+                });
+                res.send(userMap);
+            }
+           
+
+        });
+
+    }
 
 }
 
