@@ -15,7 +15,7 @@ public class UserInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        TextView textView = (TextView)findViewById(R.id.text);
+        TextView textView = (TextView)findViewById(R.id.fullName);
         Intent i = new Intent(UserInfo.this,Dashboard.class);
         i.putExtra("userInfo",getIntent().getStringExtra("userData"));
         try {
