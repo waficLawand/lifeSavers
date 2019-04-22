@@ -234,10 +234,10 @@
                 android:orientation="horizontal">
 
                 <android.support.constraint.ConstraintLayout
-                    android:id="@+id/mapLayout"
-                    map:liteMode="true"
+                    android:id="@+id/userMapLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp">
+                    android:layout_height="200dp"
+                    map:liteMode="true">
 
                 </android.support.constraint.ConstraintLayout>
             </LinearLayout>

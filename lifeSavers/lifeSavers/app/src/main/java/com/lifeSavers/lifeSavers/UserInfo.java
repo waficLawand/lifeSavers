@@ -1,5 +1,7 @@
 package com.lifeSavers.lifeSavers;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +17,11 @@ public class UserInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        final MapFragment map = new MapFragment();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction FT = fm.beginTransaction();
+        FT.add(R.id.userMapLayout,map);
+        FT.commit();
         TextView textView = (TextView)findViewById(R.id.fullName);
         Intent i = new Intent(UserInfo.this,Dashboard.class);
         i.putExtra("userInfo",getIntent().getStringExtra("userData"));
