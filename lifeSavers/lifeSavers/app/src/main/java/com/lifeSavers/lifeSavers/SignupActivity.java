@@ -13,7 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -21,14 +24,28 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.widget.Toast.LENGTH_LONG;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
@@ -53,7 +70,10 @@ public class SignupActivity extends AppCompatActivity {
     TextView _loginLink;
     @BindView(R.id.bloodType)
     Spinner bloodTypeSpinner;
-
+    @BindView(R.id.donerBool)
+    CheckBox donerBoolean;
+    String bloodTypeStr;
+    Constants constants = new Constants();
     final MapFragment map = new MapFragment();
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,7 +91,33 @@ public class SignupActivity extends AppCompatActivity {
         //Disabling address editable text
         _addressText.setFocusable(false);
         //Initializing blood type spinner
-        List<String> bloodTypes = new ArrayList<String>();
+        final List<String> bloodTypes = new ArrayList<String>();
+        bloodTypes.add("Pick your Blood Type");
+        bloodTypes.add("A+");
+        bloodTypes.add("A-");
+        bloodTypes.add("B+");
+        bloodTypes.add("B-");
+        bloodTypes.add("AB+");
+        bloodTypes.add("AB-");
+        bloodTypes.add("O+");
+        bloodTypes.add("O-");
+
+        ArrayAdapter<String> adp = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,bloodTypes);
+        adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        bloodTypeSpinner.setAdapter(adp);
+        bloodTypeSpinner.setSelection(0,false);
+
+        bloodTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                bloodTypeStr = bloodTypes.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
 
         _signupButton.setOnClickListener(new View.OnClickListener() {
@@ -93,17 +139,7 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        if(savedInstanceState ==null)
-        {
-            Toast.makeText(SignupActivity.this,"jsakjskajskajskajskjakjskaj",Toast.LENGTH_SHORT).show();
 
-
-        }
-
-    }
 
     public void signup() {
 
@@ -121,27 +157,111 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
+        LatLng coordinates = map.getCoordinates();
+        final String donerBool;
+        if(donerBoolean.isChecked())
+            donerBool = "true";
+        else
+            donerBool = "false";
 
-        String name = _nameText.getText().toString();
-        String username = _username.getText().toString();
-        String address = _addressText.getText().toString();
-        String email = _emailText.getText().toString();
-        String mobile = _mobileText.getText().toString();
-        String password = _passwordText.getText().toString();
+        final String name = _nameText.getText().toString();
+        final String username = _username.getText().toString();
+        final double latitude = coordinates.latitude;
+        final double longitude = coordinates.longitude;
+        final String email = _emailText.getText().toString();
+        final String mobile = _mobileText.getText().toString();
+        final String password = _passwordText.getText().toString();
+        final String bloodType = bloodTypeStr;
         String reEnterPassword = _reEnterPasswordText.getText().toString();
 
         // TODO: Implement your own signup logic here.
 
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed
-                        // depending on success
-                        onSignupSuccess();
-                        // onSignupFailed();
-                        progressDialog.dismiss();
+        RequestQueue MyRequestQueue = Volley.newRequestQueue(this);
+        String URL = "http://"+constants.getIP()+":3000/api/newUser";
+        StringRequest jsonObjRequest = new StringRequest(Request.Method.POST,
+                URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONParser parser = new JSONParser();
+                        try {
+                            final JSONObject json = new JSONObject(response);
+                            if(!json.getBoolean("success"))
+                            {
+                                progressDialog.dismiss();
+
+                                Toast.makeText(SignupActivity.this,json.getString("msg"),LENGTH_LONG).show();
+                                onSignupFailed();
+                            }else
+                            {
+                                new android.os.Handler().postDelayed(
+                                        new Runnable() {
+                                            public void run() {
+                                                Intent i;
+                                                i = new Intent(SignupActivity.this,Dashboard.class);
+                                                try {
+                                                    i.putExtra("userData",json.getJSONObject("msg").toString());
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                                // On complete call either onLoginSuccess or onLoginFailed
+                                                onSignupSuccess();
+                                                // onLoginFailed();
+                                                progressDialog.dismiss();
+                                                startActivity(i);
+
+                                            }
+                                        }, 3000);
+                            }
+
+
+
+
+
+
+                            //Toast.makeText(LoginActivity.this,json.toString(),LENGTH_LONG).show();
+                        }  catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
-                }, 3000);
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+
+            }
+        }) {
+
+            @Override
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+
+            @Override
+            protected Map<String, String> getParams()  {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("fullName", name);
+                params.put("username", username);
+                params.put("password", password);
+                params.put("email", email);
+                params.put("mobileNumber", mobile);
+                params.put("latitude", String.valueOf(latitude));
+                params.put("longitude", String.valueOf(longitude));
+                params.put("bloodType",bloodType);
+                params.put("doner",donerBool);
+
+                return params;
+            }
+
+        };
+
+
+
+        MyRequestQueue.add(jsonObjRequest);
+
+
+
     }
 
 

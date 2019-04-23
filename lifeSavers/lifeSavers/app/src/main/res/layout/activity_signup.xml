@@ -147,6 +147,14 @@
             android:layout_marginTop="8dp">
 
 
+            <CheckBox
+                android:id="@+id/donerBool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="I want to be a donar"
+                map:layout_editor_absoluteX="0dp"
+                map:layout_editor_absoluteY="138dp" />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Password Label -->
@@ -159,11 +167,11 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:layout_marginTop="24dp"
-            android:padding="12dp"
+            android:layout_marginTop="10dp"
             android:background="#083B66"
-            android:textColor="#ffffff"
-            android:text="Create Account" />
+            android:padding="12dp"
+            android:text="Create Account"
+            android:textColor="#ffffff" />
 
         <TextView
             android:id="@+id/link_login"

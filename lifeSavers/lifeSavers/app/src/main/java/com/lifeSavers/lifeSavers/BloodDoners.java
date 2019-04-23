@@ -91,6 +91,7 @@ public class BloodDoners extends Fragment {
                             }
                             images.add(R.drawable.fb_logo);
                             images.add(R.drawable.fb_logo);
+                            images.add(R.drawable.fb_logo);
                             MyListView adapter=new MyListView(getActivity(), donersFullName,donersBloodType,images);
                             list.setAdapter(adapter);
 
