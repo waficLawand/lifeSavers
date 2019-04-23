@@ -57,7 +57,7 @@ class User
                 let userMap = {};
 
                 users.forEach(function(user){
-                    userMap = user;
+                    userMap[user._id] = user;
     
                 });
                 res.send(userMap);
