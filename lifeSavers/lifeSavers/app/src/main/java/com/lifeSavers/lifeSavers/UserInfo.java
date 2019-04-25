@@ -5,8 +5,10 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,7 +29,7 @@ public class UserInfo extends AppCompatActivity {
         TextView fullName = (TextView)findViewById(R.id.fullName);
         TextView donarEmail = (TextView) findViewById(R.id.donarEmail);
         TextView donarPhone = (TextView) findViewById(R.id.donarPhone);
-
+        TextView shareButton = (TextView) findViewById(R.id.shareButton);
         ImageView userBloodType = (ImageView) findViewById(R.id.userPhoto);
 
 
@@ -38,7 +40,7 @@ public class UserInfo extends AppCompatActivity {
         i.putExtra("userInfo",getIntent().getStringExtra("userData"));
         try {
 
-            JSONObject data = new JSONObject(getIntent().getStringExtra("userInfo"));
+            final JSONObject data = new JSONObject(getIntent().getStringExtra("userInfo"));
 
             UserInfoMap map = new UserInfoMap(data.getDouble("longitude"),data.getDouble("latitude"));
             FragmentManager fm = getFragmentManager();
@@ -78,6 +80,28 @@ public class UserInfo extends AppCompatActivity {
             fullName.setText(data.getString("fullName"));
             donarPhone.setText(data.getString("mobileNumber"));
             donarEmail.setText(data.getString("email"));
+
+            shareButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
+                    whatsappIntent.setType("text/plain");
+                    whatsappIntent.setPackage("com.whatsapp");
+                    try {
+                        whatsappIntent.putExtra(Intent.EXTRA_TEXT, "Donar's full Name: "+data.getString("fullName")+
+                                                                        "\nDonar's phone number: "+data.getString("mobileNumber")+
+                                                                        "\nDonar's email: "+data.getString("email")+
+                                                                        "\nDonar's lacation is: "+data.getString("location"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        startActivity(whatsappIntent);
+                    } catch (android.content.ActivityNotFoundException ex) {
+                        Toast.makeText(UserInfo.this,"Whatsapp is not installed",Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
 
         } catch (JSONException e) {
             e.printStackTrace();
