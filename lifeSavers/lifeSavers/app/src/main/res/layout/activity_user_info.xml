@@ -50,7 +50,7 @@
     </RelativeLayout>
 
     <!-- Here starts scrolling - view all content -->
-    <ScrollView
+    <com.lifeSavers.lifeSavers.CustomScrollView
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -80,6 +80,9 @@
                     android:src="@drawable/ic_email_black_24dp" />
 
                 <TextView
+                    android:autoLink="email"
+                    android:inputType="textEmailAddress"
+                    android:id="@+id/donarEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -101,8 +104,11 @@
                     android:src="@drawable/ic_phone_android_black_24dp" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:autoLink="phone"
+                    android:inputType="phone"
+                    android:id="@+id/donarPhone"
 
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:paddingLeft="20dp"
@@ -125,8 +131,9 @@
                     android:src="@drawable/blooddrop" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/donarDate"
 
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:paddingLeft="20dp"
@@ -193,7 +200,7 @@
             </LinearLayout>
 
         </LinearLayout>
-    </ScrollView>
+    </com.lifeSavers.lifeSavers.CustomScrollView >
 
 
 </android.support.constraint.ConstraintLayout>

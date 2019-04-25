@@ -1,6 +1,7 @@
 package com.lifeSavers.lifeSavers;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.ProgressDialog;
@@ -36,16 +37,22 @@ import java.util.Locale;
 import java.util.Map;
 
 
-public class MapFragment extends Fragment implements View.OnClickListener {
+public class UserInfoMap extends Fragment implements View.OnClickListener {
 
     MapView mMapView;
     public GoogleMap googleMap;
     private LatLng coordinates;
     private String state;
 
-    public MapFragment() {
+
+    public UserInfoMap() {
         this.coordinates = new LatLng(0,0);
         this.state = "";
+    }
+    @SuppressLint("ValidFragment")
+    public UserInfoMap(double longitude, double latitude)
+    {
+        this.coordinates = new LatLng(longitude,latitude);
     }
 
     public String getState()
@@ -91,57 +98,14 @@ public class MapFragment extends Fragment implements View.OnClickListener {
 
 
                 // For dropping a marker at a point on the Map
+                LatLng location = new LatLng(getCoordinates().longitude, getCoordinates().latitude);
+                googleMap.addMarker(new MarkerOptions().position(location));
 
-                LatLng lebanon = new LatLng(33.8938,35.5018);
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(lebanon));
-                mMap.addMarker(new MarkerOptions().position(lebanon));
-                mMap.animateCamera( CameraUpdateFactory.zoomTo( 10.0f ) );
+
                 // For zooming automatically to the location of the marker
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(lebanon).zoom(12).build();
-                mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(final LatLng point) {
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(location).zoom(12).build();
+                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
-                        Log.d("DEBUG","Map clicked [" + point.latitude + " / " + point.longitude + "]");
-                        mMap.clear();
-
-                        LatLng newLocation = new LatLng(point.latitude, point.longitude);
-                        setCoordinates(newLocation);
-                        mMap.addMarker(new MarkerOptions().position(newLocation).title("Marker in Sydney"));
-
-
-
-                Geocoder geocoder;
-                List<Address> addresses = null;
-                geocoder = new Geocoder(getContext(), Locale.getDefault());
-
-                try {
-                    addresses = geocoder.getFromLocation(point.latitude, point.longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                //String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-                String city = addresses.get(0).getLocality();
-                String state = addresses.get(0).getAdminArea();
-                //String country = addresses.get(0).getCountryName();
-                //String postalCode = addresses.get(0).getPostalCode();
-                String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
-                        setState(state);
-
-                        EditText edit = (EditText)getActivity().findViewById(R.id.input_address);
-                        edit.setText(getState());
-                //Toast.makeText(getContext(),city+" "+state+" "+knownName,Toast.LENGTH_SHORT).show();
-
-
-
-                      //  Toast.makeText(getContext(),newLocation.toString(),Toast.LENGTH_SHORT).show();
-                        //ViewDialog alert = new ViewDialog(MapsActivity.this);
-
-
-
-                            }
-                        });
             }
         });
 

@@ -51,7 +51,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
         mMap = googleMap;
+        LatLng lebanon = new LatLng(33.8938,35.5018);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(lebanon));
+        mMap.addMarker(new MarkerOptions().position(lebanon));
+        mMap.animateCamera( CameraUpdateFactory.zoomTo( 10.0f ) );
 
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
@@ -60,28 +65,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.clear();
 
                 LatLng newLocation = new LatLng(point.latitude, point.longitude);
-                mMap.addMarker(new MarkerOptions().position(newLocation).title("Marker in Sydney"));
+                mMap.addMarker(new MarkerOptions().position(newLocation));
 
 
 
-               /* Geocoder geocoder;
-                List<Address> addresses = null;
-                geocoder = new Geocoder(MapsActivity.this, Locale.getDefault());
-
-                try {
-                    addresses = geocoder.getFromLocation(point.latitude, point.longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                //String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-                String city = addresses.get(0).getLocality();
-                String state = addresses.get(0).getAdminArea();
-                //String country = addresses.get(0).getCountryName();
-                //String postalCode = addresses.get(0).getPostalCode();
-                String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
-
-                Toast.makeText(MapsActivity.this,city+" "+state+" "+knownName,Toast.LENGTH_SHORT).show();*/
 
 
 
@@ -142,9 +129,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
         });
-        LatLng lebanon = new LatLng(33.8938,35.5018);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(lebanon));
-        mMap.animateCamera( CameraUpdateFactory.zoomTo( 10.0f ) );
+
         // Add a marker in Sydney and move the camera
 
 

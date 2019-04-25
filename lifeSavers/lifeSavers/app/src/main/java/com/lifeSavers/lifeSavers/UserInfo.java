@@ -17,16 +17,17 @@ public class UserInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        final MapFragment map = new MapFragment();
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction FT = fm.beginTransaction();
-        FT.add(R.id.userMapLayout,map);
-        FT.commit();
 
 
 
-        TextView textView = (TextView)findViewById(R.id.fullName);
+
+
+        TextView fullName = (TextView)findViewById(R.id.fullName);
+        TextView donarEmail = (TextView) findViewById(R.id.donarEmail);
+        TextView donarPhone = (TextView) findViewById(R.id.donarPhone);
+
         ImageView userBloodType = (ImageView) findViewById(R.id.userPhoto);
 
 
@@ -38,6 +39,13 @@ public class UserInfo extends AppCompatActivity {
         try {
 
             JSONObject data = new JSONObject(getIntent().getStringExtra("userInfo"));
+
+            UserInfoMap map = new UserInfoMap(data.getDouble("longitude"),data.getDouble("latitude"));
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction FT = fm.beginTransaction();
+            FT.add(R.id.userMapLayout,map);
+            FT.commit();
+
             String bloodType = data.getString("bloodType");
             switch(bloodType) {
                 case "A+":
@@ -67,7 +75,9 @@ public class UserInfo extends AppCompatActivity {
             }
 
 
-            textView.setText(data.getString("fullName"));
+            fullName.setText(data.getString("fullName"));
+            donarPhone.setText(data.getString("mobileNumber"));
+            donarEmail.setText(data.getString("email"));
 
         } catch (JSONException e) {
             e.printStackTrace();
