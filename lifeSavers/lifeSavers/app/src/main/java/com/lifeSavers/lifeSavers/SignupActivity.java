@@ -99,7 +99,7 @@ public class SignupActivity extends AppCompatActivity {
         bloodTypes.add("B-");
         bloodTypes.add("AB+");
         bloodTypes.add("AB-");
-        bloodTypes.add("O+");
+        bloodTypes.add("opositive");
         bloodTypes.add("O-");
 
         ArrayAdapter<String> adp = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,bloodTypes);
@@ -173,6 +173,7 @@ public class SignupActivity extends AppCompatActivity {
         final String password = _passwordText.getText().toString();
         final String bloodType = bloodTypeStr;
         String reEnterPassword = _reEnterPasswordText.getText().toString();
+        final String location = _addressText.getText().toString();
 
         // TODO: Implement your own signup logic here.
 
@@ -250,6 +251,7 @@ public class SignupActivity extends AppCompatActivity {
                 params.put("longitude", String.valueOf(longitude));
                 params.put("bloodType",bloodType);
                 params.put("doner",donerBool);
+                params.put("location",location);
 
                 return params;
             }

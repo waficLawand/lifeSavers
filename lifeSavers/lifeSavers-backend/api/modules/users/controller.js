@@ -5,7 +5,7 @@ class User
 {
     registerUser(req,res)
     {
-        UserSchema.register(new UserSchema({username:req.body.username,email:req.body.email,longitude:req.body.longitude,latitude:req.body.latitude,bloodType:req.body.bloodType,fullName:req.body.fullName,lastDateOfDonation:req.body.lastDateOfDonation,age:req.body.age,doner:req.body.doner,mobileNumber:req.body.mobileNumber}),req.body.password,function(err,user){
+        UserSchema.register(new UserSchema({username:req.body.username,email:req.body.email,longitude:req.body.longitude,latitude:req.body.latitude,bloodType:req.body.bloodType,fullName:req.body.fullName,lastDateOfDonation:req.body.lastDateOfDonation,age:req.body.age,doner:req.body.doner,mobileNumber:req.body.mobileNumber,location:req.body.location}),req.body.password,function(err,user){
             if(err){
                 console.log(err);
                 return res.status(400).send({success:false,msg:user});

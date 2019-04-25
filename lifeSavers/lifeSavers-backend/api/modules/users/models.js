@@ -51,6 +51,10 @@ const UserSchema = mongoose.Schema({
    mobileNumber:
    {
        type:Number
+   },
+   location:
+   {
+       type:String
    }
    
 
