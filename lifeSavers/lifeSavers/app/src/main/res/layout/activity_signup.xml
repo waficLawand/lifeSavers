@@ -153,7 +153,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="I want to be a donar"
+                android:text="I want to be a donor"
                 map:layout_editor_absoluteX="0dp"
                 map:layout_editor_absoluteY="138dp" />
         </android.support.design.widget.TextInputLayout>
