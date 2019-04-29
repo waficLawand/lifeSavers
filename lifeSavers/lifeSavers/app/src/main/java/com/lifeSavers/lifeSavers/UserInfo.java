@@ -5,6 +5,8 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,10 +22,6 @@ public class UserInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-
 
 
         TextView fullName = (TextView)findViewById(R.id.fullName);
@@ -32,12 +30,16 @@ public class UserInfo extends AppCompatActivity {
         TextView shareButton = (TextView) findViewById(R.id.shareButton);
         ImageView userBloodType = (ImageView) findViewById(R.id.userPhoto);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.action_bar);
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(UserInfo.this,"Back button pressed!!",Toast.LENGTH_LONG).show();
+            }
+        });
 
 
 
-
-        Intent i = new Intent(UserInfo.this,Dashboard.class);
-        i.putExtra("userInfo",getIntent().getStringExtra("userData"));
         try {
 
             final JSONObject data = new JSONObject(getIntent().getStringExtra("userInfo"));
@@ -106,5 +108,22 @@ public class UserInfo extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+            {
+                Intent i = new Intent(UserInfo.this,Dashboard.class);
+                i.putExtra("userData",getIntent().getStringExtra("userData"));
+                Toast.makeText(UserInfo.this, "Back", Toast.LENGTH_LONG).show();
+                startActivity(i);
+            }
+
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

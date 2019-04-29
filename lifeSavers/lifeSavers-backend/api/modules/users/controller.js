@@ -116,9 +116,20 @@ class User
         });
 
     }
+    becomeAdonar(req,res)
+    {
+        UserSchema.findOneAndUpdate({username:req.body.username}, {$set: {doner: true}}, function(err,doc) {
+            if (err) 
+            {  res.send({error:true,msg:'Failed to update user info'});; }
+            else {
+                console.log("Updated user info successfully!");
+                 res.send({error:false,msg:doc});                                                                   
+                 }
+          }); 
+    
 
+    }
 }
-
  
 
 module.exports = User;

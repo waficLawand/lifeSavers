@@ -2,8 +2,6 @@ package com.lifeSavers.lifeSavers;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -24,9 +22,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class Dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -61,7 +56,7 @@ public class Dashboard extends AppCompatActivity
                 userImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.flContent,new ProfileFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.flContent,new BecomeDonarFragment()).commit();
                 drawer.closeDrawers();
             }
         });
@@ -121,7 +116,7 @@ public class Dashboard extends AppCompatActivity
         Class fragmentClass;
 
 
-        if (id == R.id.balance_fragment) {
+        if (id == R.id.bloodDonars) {
             getSupportFragmentManager().beginTransaction().replace(R.id.flContent,new BloodDoners()).commit();
 
         } else if (id == R.id.logout) {
@@ -146,13 +141,13 @@ public class Dashboard extends AppCompatActivity
 
          else if (id == R.id.home) {
             getSupportFragmentManager().beginTransaction().replace(R.id.flContent,new BloodDoners()).commit();
-        } /*else if (id == R.id.nav_manage) {
-
+        } else if (id == R.id.become_donar) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.flContent,new BecomeDonarFragment()).commit();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
-        }*/
+        }
 
 
 

@@ -5,13 +5,13 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/home"
+            android:id="@+id/bloodDonars"
             android:icon="@drawable/ic_home_black_24dp"
-            android:title="Blood Doners" />
+            android:title="Blood Donars" />
         <item
-            android:id="@+id/balance_fragment"
+            android:id="@+id/become_donar"
             android:icon="@drawable/ic_menu_dollar"
-            android:title="Balance" />
+            android:title="Become A Donar" />
         <item
             android:id="@+id/points_fragment"
             android:icon="@drawable/ic_menu_points"

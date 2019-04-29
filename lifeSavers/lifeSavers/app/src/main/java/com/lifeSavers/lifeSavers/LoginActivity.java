@@ -36,6 +36,7 @@ import static android.widget.Toast.makeText;
 public class LoginActivity extends AppCompatActivity {
     Constants constants = new Constants();
     Intent i;
+    static public String userInfo;
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
     @BindView(R.id.input_email) EditText _emailText;
@@ -140,6 +141,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 i = new Intent(LoginActivity.this,Dashboard.class);
                                                 try {
                                                     i.putExtra("userData",json.getJSONObject("msg").toString());
+                                                    userInfo = json.getJSONObject("msg").toString();
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();
                                                 }
