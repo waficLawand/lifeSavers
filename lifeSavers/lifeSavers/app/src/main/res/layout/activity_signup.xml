@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.lifeSavers.lifeSavers.CustomScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:map="http://schemas.android.com/tools"
     android:id="@+id/scroll"
     android:layout_width="fill_parent"
@@ -141,11 +142,29 @@
 
 
         <!-- mobile number -->
+
+        <!-- Password Label -->
+
+        <!-- Password Re-enter Label -->
+
+        <!-- Signup Button -->
+        <EditText
+            android:id="@+id/donationDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Last Date of Donation"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            map:layout_editor_absoluteX="27dp" />
+
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="12dp">
 
 
             <CheckBox
@@ -156,13 +175,9 @@
                 android:text="I want to be a donor"
                 map:layout_editor_absoluteX="0dp"
                 map:layout_editor_absoluteY="138dp" />
+
         </android.support.design.widget.TextInputLayout>
 
-        <!-- Password Label -->
-
-        <!-- Password Re-enter Label -->
-
-        <!-- Signup Button -->
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_signup"
             android:layout_width="fill_parent"

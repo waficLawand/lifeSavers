@@ -1,11 +1,18 @@
 package com.lifeSavers.lifeSavers;
 
+import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.icu.text.SimpleDateFormat;
+import android.icu.util.Calendar;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -17,6 +24,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -37,7 +45,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.sql.Date;
 import java.util.ArrayList;
+
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,9 +83,13 @@ public class SignupActivity extends AppCompatActivity {
     Spinner bloodTypeSpinner;
     @BindView(R.id.donerBool)
     CheckBox donerBoolean;
+    @BindView(R.id.donationDate)
+    EditText donationDate;
     String bloodTypeStr;
     Constants constants = new Constants();
     final MapFragment map = new MapFragment();
+    DatePickerDialog.OnDateSetListener mDatePicker;
+    public static String userInfo = "";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +105,7 @@ public class SignupActivity extends AppCompatActivity {
         FT.commit();
         //Disabling address editable text
         _addressText.setFocusable(false);
+        donationDate.setFocusable(false);
         //Initializing blood type spinner
         final List<String> bloodTypes = new ArrayList<String>();
         bloodTypes.add("Pick your Blood Type");
@@ -118,6 +134,28 @@ public class SignupActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+        donationDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal =  Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog dialog = new DatePickerDialog(SignupActivity.this,android.R.style.Theme_Holo_Light_Dialog_MinWidth,mDatePicker,year,month,day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+        mDatePicker = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
+
+                String date = month + "/" + day + "/" + year;
+                donationDate.setText(date);
+            }
+        };
 
 
         _signupButton.setOnClickListener(new View.OnClickListener() {
@@ -163,6 +201,13 @@ public class SignupActivity extends AppCompatActivity {
             donerBool = "true";
         else
             donerBool = "false";
+        /*Date date1= (Date) new Date
+                (donationDate.getYear(), donationDate.getMonth(), donationDate.getDayOfMonth());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        final String dateString = sdf.format(date1);*/
+
+
 
         final String name = _nameText.getText().toString();
         final String username = _username.getText().toString();
@@ -174,6 +219,7 @@ public class SignupActivity extends AppCompatActivity {
         final String bloodType = bloodTypeStr;
         String reEnterPassword = _reEnterPasswordText.getText().toString();
         final String location = _addressText.getText().toString();
+        final String date = donationDate.getText().toString();
 
         // TODO: Implement your own signup logic here.
 
@@ -195,7 +241,7 @@ public class SignupActivity extends AppCompatActivity {
                                 onSignupFailed();
                             }else
                             {
-                                new android.os.Handler().postDelayed(
+                                new Handler().postDelayed(
                                         new Runnable() {
                                             public void run() {
                                                 Intent i;
@@ -252,6 +298,7 @@ public class SignupActivity extends AppCompatActivity {
                 params.put("bloodType",bloodType);
                 params.put("doner",donerBool);
                 params.put("location",location);
+                params.put("lastDateOfDonation",date);
 
                 return params;
             }

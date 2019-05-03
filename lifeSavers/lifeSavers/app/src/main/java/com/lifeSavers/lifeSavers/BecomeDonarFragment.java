@@ -48,12 +48,12 @@ public class BecomeDonarFragment extends Fragment {
 
 
         try {
-            JSONObject userData = new JSONObject(LoginActivity.userInfo);
+            JSONObject userData = new JSONObject(SignupActivity.userInfo);
             final String username = userData.getString("username");
             if(userData.getBoolean("doner"))
             {
                 becomeDonar.setEnabled(false);
-                becomeDonar.setText("You're already a Donar!");
+                becomeDonar.setText("You're already a Donor!");
             }
             else
             {

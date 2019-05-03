@@ -41,7 +41,7 @@ const UserSchema = mongoose.Schema({
    },
    lastDateOfDonation:
    {
-       type:Date,
+       type:String,
        
    },
    doner:

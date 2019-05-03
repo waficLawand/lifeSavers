@@ -23,10 +23,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
         Constants constants = new Constants();
-    public static String userInfo ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,9 @@ public class Dashboard extends AppCompatActivity
         ImageView userImage = (ImageView)headerView.findViewById(R.id.userImage);
 
 
+
+
+
                 userImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,17 +69,46 @@ public class Dashboard extends AppCompatActivity
 
 
         navigationView.setNavigationItemSelectedListener(this);
-        userInfo = getIntent().getStringExtra("userData");
-        /*try {
-            JSONObject userData = new JSONObject(getIntent().getStringExtra("userData"));
+        if(SignupActivity.userInfo.equals(""))
+            SignupActivity.userInfo = getIntent().getStringExtra("userData");
+        try {
+            JSONObject userData = new JSONObject(SignupActivity.userInfo);
             username.setText(userData.getString("username"));
             email.setText(userData.getString("email"));
+            String bloodType = userData.getString("bloodType");
+            switch(bloodType) {
+                case "A+":
+                    userImage.setImageResource(R.drawable.apositive);
+                    break;
+                case "B+":
+                    userImage.setImageResource(R.drawable.bpositive);
+                    break;
+                case "A-":
+                    userImage.setImageResource(R.drawable.anegative);
+                    break;
+                case "B-":
+                    userImage.setImageResource(R.drawable.bnegative);
+                    break;
+                case "AB+":
+                    userImage.setImageResource(R.drawable.abpositive);
+                    break;
+                case "AB-":
+                    userImage.setImageResource(R.drawable.abnegative);
+                    break;
+                case "O+":
+                    userImage.setImageResource(R.drawable.opositive);
+                    break;
+                case "O-":
+                    userImage.setImageResource(R.drawable.onegative);
+                    break;
+            }
+
 
 
             Toast.makeText(Dashboard.this, userData.toString(), Toast.LENGTH_SHORT).show();
         } catch (JSONException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     @Override

@@ -14,7 +14,7 @@ class User
             {
                 passport.authenticate("local")(req,res,function(){
                     console.log(user);
-                    return res.json({success: true, msg: 'Created a new user successfully!'});
+                    return res.json({success: true, msg: user});
                 });
             }
             
