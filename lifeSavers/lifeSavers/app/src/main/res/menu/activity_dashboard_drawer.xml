@@ -10,16 +10,12 @@
             android:title="Blood Donors" />
         <item
             android:id="@+id/become_donar"
-            android:icon="@drawable/ic_menu_dollar"
+            android:icon="@drawable/ic_menu_points"
             android:title="Become A Donor" />
         <item
-            android:id="@+id/points_fragment"
-            android:icon="@drawable/ic_menu_points"
-            android:title="Points" />
-        <item
-            android:id="@+id/my_services"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="My Services" />
+            android:id="@+id/before_donation"
+            android:icon="@drawable/ic_error_outline_black_24dp"
+            android:title="Before Donating Blood" />
 
         <item
             android:id="@+id/logout"

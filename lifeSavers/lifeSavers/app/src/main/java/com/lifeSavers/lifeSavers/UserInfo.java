@@ -3,6 +3,8 @@ package com.lifeSavers.lifeSavers;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -28,8 +30,11 @@ public class UserInfo extends AppCompatActivity {
         TextView donarEmail = (TextView) findViewById(R.id.donarEmail);
         TextView donarPhone = (TextView) findViewById(R.id.donarPhone);
         TextView shareButton = (TextView) findViewById(R.id.shareButton);
-        ImageView userBloodType = (ImageView) findViewById(R.id.userPhoto);
+        TextView lastDonation = (TextView) findViewById(R.id.donarDate);
 
+        ImageView userBloodType = (ImageView) findViewById(R.id.userPhoto);
+        getSupportActionBar().setBackgroundDrawable(
+                    new ColorDrawable(Color.parseColor("#708090")));
         Toolbar toolbar = (Toolbar) findViewById(R.id.action_bar);
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +87,7 @@ public class UserInfo extends AppCompatActivity {
             fullName.setText(data.getString("fullName"));
             donarPhone.setText(data.getString("mobileNumber"));
             donarEmail.setText(data.getString("email"));
+            lastDonation.setText("Last Donation: "+data.getString("lastDateOfDonation"));
 
             shareButton.setOnClickListener(new View.OnClickListener() {
                 @Override

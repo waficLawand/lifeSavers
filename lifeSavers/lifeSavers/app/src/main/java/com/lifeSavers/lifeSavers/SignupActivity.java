@@ -16,6 +16,7 @@ import android.os.Handler;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -103,6 +104,9 @@ public class SignupActivity extends AppCompatActivity {
         FragmentTransaction FT = fm.beginTransaction();
         FT.add(R.id.mapLayout,map);
         FT.commit();
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
         //Disabling address editable text
         _addressText.setFocusable(false);
         donationDate.setFocusable(false);
@@ -152,7 +156,7 @@ public class SignupActivity extends AppCompatActivity {
                 month = month + 1;
                 Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
 
-                String date = month + "/" + day + "/" + year;
+                String date = String.format("%02d",month) + "/" + String.format("%02d",day) + "/" + year;
                 donationDate.setText(date);
             }
         };
@@ -365,7 +369,7 @@ public class SignupActivity extends AppCompatActivity {
             _emailText.setError(null);
         }
 
-        if (mobile.isEmpty() || mobile.length() != 10) {
+        if (mobile.isEmpty() || mobile.length() != 8) {
             _mobileText.setError("Enter Valid Mobile Number");
             valid = false;
         } else {

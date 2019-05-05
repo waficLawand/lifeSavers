@@ -1,6 +1,8 @@
 package com.lifeSavers.lifeSavers;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -50,6 +52,8 @@ public class Dashboard extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
+        getSupportActionBar().setBackgroundDrawable(
+                new ColorDrawable(Color.parseColor("#083B66")));
 
         TextView username = (TextView)headerView.findViewById(R.id.navUsername);
         TextView email    = (TextView)headerView.findViewById(R.id.navEmail);
@@ -178,8 +182,8 @@ public class Dashboard extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.flContent,new BloodDoners()).commit();
         } else if (id == R.id.become_donar) {
             getSupportFragmentManager().beginTransaction().replace(R.id.flContent,new BecomeDonarFragment()).commit();
-        } else if (id == R.id.nav_share) {
-
+        } else if (id == R.id.before_donation) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.flContent,new BeforeDonating()).commit();
         } else if (id == R.id.nav_send) {
 
         }

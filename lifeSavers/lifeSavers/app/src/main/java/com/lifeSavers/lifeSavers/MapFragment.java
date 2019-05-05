@@ -124,19 +124,11 @@ public class MapFragment extends Fragment implements View.OnClickListener {
                 //String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
                 String city = addresses.get(0).getLocality();
                 String state = addresses.get(0).getAdminArea();
-                //String country = addresses.get(0).getCountryName();
-                //String postalCode = addresses.get(0).getPostalCode();
-                String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
-                        setState(state);
+                setState(state);
 
                         EditText edit = (EditText)getActivity().findViewById(R.id.input_address);
                         edit.setText(getState());
-                //Toast.makeText(getContext(),city+" "+state+" "+knownName,Toast.LENGTH_SHORT).show();
 
-
-
-                      //  Toast.makeText(getContext(),newLocation.toString(),Toast.LENGTH_SHORT).show();
-                        //ViewDialog alert = new ViewDialog(MapsActivity.this);
 
 
 

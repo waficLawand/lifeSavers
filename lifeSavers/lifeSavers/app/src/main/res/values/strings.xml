@@ -10,4 +10,31 @@
     <string name="title_activity_tasker">TaskerActivity</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_user_details">UserDetails</string>
+    <string name = "before">
+        . Have a good night’s sleep.\n
+        . Eat well. Avoid fatty meals.\n
+        . Drink plenty of fluids. Avoid alcohol and an excess of caffeine (tea, coffee).\n
+        . Wear loose clothes (with sleeves that can be raised above the elbow).\n
+        . Identify the “good veins” if you are a regular blood donor.
+    </string>
+    <string name = "whoCan">
+        .Age: 18 to 65 years old. Above that, it comes down to the overall health status.\n
+        .Weight: on average >60Kg for men, >50Kg for women. \n
+        .If you are feeling well, and display no signs of infection. \n
+        .You can give blood every 3 months, up to 4 times a year for women and 5 for men.\n
+    </string>
+
+    <string name = "happens">
+        .You are required to present your ID card upon arrival.\n
+        .You fill in a questionnaire and may be privately interrogated by a nurse.\n
+        .Your hemoglobin level is checked to ensure you are not anemic. \n
+        .Your temperature, blood pressure and pulse should be checked as well.
+    </string>
+
+    <string name = "benefits">
+        .Detect medical conditions such as hypertension, anemia, blood-borne diseases, ongoing infections.\n
+        .Reduce cancer risks, especially those related to blood (leukemia and lymphoma).Reduce cardiovascular events (heart attacks and strokes). \n
+        .Replenish your blood by keeping the bone marrow active, regenerating red blood cells on a frequent basis.
+    </string>
+
 </resources>

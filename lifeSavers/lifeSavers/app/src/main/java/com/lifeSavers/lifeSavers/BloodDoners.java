@@ -59,7 +59,7 @@ public class BloodDoners extends Fragment {
             }
         });*/
         ((Dashboard) getActivity())
-                .setActionBarTitle("Blood Doners");
+                .setActionBarTitle("Life Savers");
 
         RequestQueue queue = Volley.newRequestQueue(getContext());  // this = context
         final Constants c = new Constants();
